@@ -1,5 +1,7 @@
+
 export default function Page() {
     return (
+      <>
       <div className="min-h-screen bg-gray-100 p-8">
         {/* การ์ดพื้นฐาน */}
         <div className="rounded-lg bg-white p-6 shadow-lg">
@@ -56,5 +58,6 @@ export default function Page() {
           </div>
         </div>
       </div>
+      </>
     )
   }
