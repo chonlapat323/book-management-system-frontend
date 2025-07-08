@@ -1,22 +1,28 @@
 import { create } from 'zustand'
+
 import { createBook, deleteBook, getBooks, updateBook } from '../lib/api/books'
-import { Book, BookQueryParams, CreateBookDto, UpdateBookDto } from '../types/book'
+import {
+  Book,
+  BookQueryParams,
+  CreateBookDto,
+  UpdateBookDto,
+} from '../types/book'
 
 // ย้าย genres มาไว้ที่นี่
 export const BOOK_GENRES = [
-  "Fiction",
-  "Non-Fiction",
-  "Science Fiction",
-  "Fantasy",
-  "Romance",
-  "Mystery",
-  "Horror",
-  "Biography",
-  "History",
-  "Poetry"
+  'Fiction',
+  'Non-Fiction',
+  'Science Fiction',
+  'Fantasy',
+  'Romance',
+  'Mystery',
+  'Horror',
+  'Biography',
+  'History',
+  'Poetry',
 ] as const
 
-export type BookGenre = typeof BOOK_GENRES[number]
+export type BookGenre = (typeof BOOK_GENRES)[number]
 
 interface BookStore {
   // Data States
@@ -26,18 +32,18 @@ interface BookStore {
     page: number
     limit: number
   } | null
-  
+
   // Query Params
   currentParams: BookQueryParams | undefined
-  
+
   // Dialog States
   isAddDialogOpen: boolean
   isEditDialogOpen: boolean
   isDeleteDialogOpen: boolean
-  
+
   // Book being edited/deleted
   selectedBook: Book | null
-  
+
   // Loading States
   isLoading: boolean
   error: string | null
@@ -55,7 +61,7 @@ interface BookStore {
   addBook: (book: CreateBookDto) => Promise<void>
   editBook: (id: number, book: UpdateBookDto) => Promise<void>
   removeBook: (id: number) => Promise<void>
-  
+
   // Action - Reset
   resetError: () => void
 }
@@ -76,9 +82,12 @@ export const useBookStore = create<BookStore>((set, get) => ({
   openAddDialog: () => set({ isAddDialogOpen: true }),
   closeAddDialog: () => set({ isAddDialogOpen: false, error: null }),
   openEditDialog: (book) => set({ isEditDialogOpen: true, selectedBook: book }),
-  closeEditDialog: () => set({ isEditDialogOpen: false, selectedBook: null, error: null }),
-  openDeleteDialog: (book) => set({ isDeleteDialogOpen: true, selectedBook: book }),
-  closeDeleteDialog: () => set({ isDeleteDialogOpen: false, selectedBook: null, error: null }),
+  closeEditDialog: () =>
+    set({ isEditDialogOpen: false, selectedBook: null, error: null }),
+  openDeleteDialog: (book) =>
+    set({ isDeleteDialogOpen: true, selectedBook: book }),
+  closeDeleteDialog: () =>
+    set({ isDeleteDialogOpen: false, selectedBook: null, error: null }),
 
   // Book Operations
   fetchBooks: async (params) => {
@@ -86,20 +95,20 @@ export const useBookStore = create<BookStore>((set, get) => ({
       set({ isLoading: true, error: null })
       // ถ้าไม่มี params ใหม่ ใช้ params เดิม
       const queryParams = params || get().currentParams
-      
+
       // ปรับ params ก่อนส่งไป API
       const apiParams: BookQueryParams = {
         ...queryParams,
         // ถ้า genre เป็น 'all' ให้เป็น undefined
-        genre: queryParams?.genre === 'all' ? undefined : queryParams?.genre
+        genre: queryParams?.genre === 'all' ? undefined : queryParams?.genre,
       }
-      
+
       const response = await getBooks(apiParams)
-      set({ 
+      set({
         books: response.data,
         meta: response.meta,
         // เก็บ params ที่ยังไม่ได้แปลงไว้ (เพื่อให้ UI แสดงค่าถูกต้อง)
-        currentParams: queryParams
+        currentParams: queryParams,
       })
     } catch (error) {
       set({ error: 'Failed to fetch books' })
@@ -155,5 +164,5 @@ export const useBookStore = create<BookStore>((set, get) => ({
   },
 
   // Reset Error
-  resetError: () => set({ error: null })
+  resetError: () => set({ error: null }),
 }))

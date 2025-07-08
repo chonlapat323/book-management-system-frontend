@@ -1,11 +1,18 @@
-"use client"
+'use client'
 
-import { useDebounce } from "@/app/hooks/useDebounce"
-import { BOOK_GENRES } from "@/app/store/books"
-import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Search } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
+import { Search } from 'lucide-react'
+
+import { Input } from '@/components/ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { useDebounce } from '@/app/hooks/useDebounce'
+import { BOOK_GENRES } from '@/app/store/books'
 
 interface SearchAndFiltersProps {
   searchQuery: string
@@ -38,8 +45,8 @@ export function SearchAndFilters({
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center">
-        <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <div className="relative max-w-sm flex-1">
+          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 transform" />
           <Input
             placeholder="Search books..."
             value={inputValue}

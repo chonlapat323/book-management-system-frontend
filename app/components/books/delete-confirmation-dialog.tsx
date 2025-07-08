@@ -1,6 +1,5 @@
-"use client"
+'use client'
 
-import { Book } from "@/app/types/book"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,7 +9,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
+} from '@/components/ui/alert-dialog'
+import { Book } from '@/app/types/book'
 
 interface DeleteConfirmationDialogProps {
   open: boolean
@@ -19,14 +19,20 @@ interface DeleteConfirmationDialogProps {
   onConfirm: () => void
 }
 
-export function DeleteConfirmationDialog({ open, onOpenChange, book, onConfirm }: DeleteConfirmationDialogProps) {
+export function DeleteConfirmationDialog({
+  open,
+  onOpenChange,
+  book,
+  onConfirm,
+}: DeleteConfirmationDialogProps) {
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Delete Book</AlertDialogTitle>
           <AlertDialogDescription>
-            Are you sure you want to delete "{book?.title}"? This action cannot be undone.
+            Are you sure you want to delete "{book?.title}"? This action cannot
+            be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

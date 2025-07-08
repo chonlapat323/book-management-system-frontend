@@ -1,10 +1,11 @@
-"use client"
+'use client'
 
-import { Book } from "@/app/types/book"
-import { BookCard } from "./book-card"
-import { BookSkeleton } from "./book-skeleton"
-import { EmptyState } from "./empty-state"
-import { ErrorState } from "./error-state"
+import { Book } from '@/app/types/book'
+
+import { BookCard } from './book-card'
+import { BookSkeleton } from './book-skeleton'
+import { EmptyState } from './empty-state'
+import { ErrorState } from './error-state'
 
 interface BookGridProps {
   books: Book[]
@@ -21,7 +22,7 @@ export function BookGrid({
   error,
   onEdit,
   onDelete,
-  onRetry
+  onRetry,
 }: BookGridProps) {
   if (error) {
     return <ErrorState onRetry={onRetry} />

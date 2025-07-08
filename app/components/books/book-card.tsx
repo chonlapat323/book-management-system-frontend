@@ -1,11 +1,12 @@
-"use client"
+'use client'
 
-import { Book } from "@/app/types/book"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Calendar, Edit, Trash2, User } from "lucide-react"
-import { useMemo } from "react"
+import { useMemo } from 'react'
+import { Calendar, Edit, Trash2, User } from 'lucide-react'
+
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Book } from '@/app/types/book'
 
 interface BookCardProps {
   book: Book
@@ -15,7 +16,7 @@ interface BookCardProps {
 
 const gradients = [
   //"from-blue-500/20 to-purple-500/20",
-  "from-pink-500/20 to-rose-500/20",
+  'from-pink-500/20 to-rose-500/20',
   // "from-emerald-500/20 to-teal-500/20",
   // "from-cyan-500/20 to-blue-500/20",
   // "from-gray-500/20 to-slate-500/20",
@@ -33,20 +34,24 @@ export function BookCard({ book, onEdit, onDelete }: BookCardProps) {
   }, []) // Empty deps array means this will be calculated once per component instance
 
   return (
-    <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group border-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50 overflow-hidden">
+    <Card className="group h-full overflow-hidden border-0 bg-gradient-to-br from-white to-gray-50/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:from-gray-900 dark:to-gray-800/50">
       {/* Book Cover Placeholder with Gradient */}
-      <div className={`h-32 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
+      <div
+        className={`h-32 bg-gradient-to-br ${gradient} relative overflow-hidden`}
+      >
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-        <div className="absolute bottom-3 left-3 right-3">
-          <div className="text-white/90 text-xs font-medium truncate">{book.genre}</div>
+        <div className="absolute right-3 bottom-3 left-3">
+          <div className="truncate text-xs font-medium text-white/90">
+            {book.genre}
+          </div>
         </div>
       </div>
 
-      <CardHeader className="pb-3 pt-4">
-        <CardTitle className="text-lg font-bold line-clamp-2 group-hover:text-primary transition-colors leading-tight">
+      <CardHeader className="pt-4 pb-3">
+        <CardTitle className="group-hover:text-primary line-clamp-2 text-lg leading-tight font-bold transition-colors">
           {book.title}
         </CardTitle>
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="text-muted-foreground flex items-center gap-2 text-sm">
           <User className="h-3 w-3" />
           <span className="font-medium">{book.author}</span>
         </div>
@@ -54,16 +59,18 @@ export function BookCard({ book, onEdit, onDelete }: BookCardProps) {
 
       <CardContent className="space-y-4 pt-0">
         <div className="flex items-center justify-between">
-          <Badge
-            variant="secondary"
-            className="text-xs font-medium bg-gradient-to-r from-primary/10 to-primary/5 text-primary border-primary/20"
-          >
-            {book.genre}
-          </Badge>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+          <div className="text-muted-foreground flex items-center gap-1 text-xs">
             <Calendar className="h-3 w-3" />
             <span className="font-medium">{book.published_year}</span>
           </div>
+          {book.genre && (
+            <Badge
+              variant="secondary"
+              className="from-primary/10 to-primary/5 text-primary border-primary/20 bg-gradient-to-r text-xs font-medium"
+            >
+              {book.genre}
+            </Badge>
+          )}
         </div>
 
         <div className="flex gap-2 pt-2">
@@ -72,9 +79,9 @@ export function BookCard({ book, onEdit, onDelete }: BookCardProps) {
               size="sm"
               variant="outline"
               onClick={() => onEdit(book)}
-              className="flex-1 h-9 text-xs font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-200 group/btn cursor-pointer"
+              className="hover:bg-primary hover:text-primary-foreground group/btn h-9 flex-1 cursor-pointer text-xs font-medium transition-all duration-200"
             >
-              <Edit className="h-3 w-3 mr-1.5 group-hover/btn:scale-110 transition-transform" />
+              <Edit className="mr-1.5 h-3 w-3 transition-transform group-hover/btn:scale-110" />
               Edit
             </Button>
           )}
@@ -83,9 +90,9 @@ export function BookCard({ book, onEdit, onDelete }: BookCardProps) {
               size="sm"
               variant="outline"
               onClick={() => onDelete(book)}
-              className="flex-1 h-9 text-xs font-medium hover:bg-destructive hover:text-white hover:border-destructive transition-all duration-200 group/btn cursor-pointer"
+              className="hover:bg-destructive hover:border-destructive group/btn h-9 flex-1 cursor-pointer text-xs font-medium transition-all duration-200 hover:text-white"
             >
-              <Trash2 className="h-3 w-3 mr-1.5 group-hover/btn:scale-110 transition-transform " />
+              <Trash2 className="mr-1.5 h-3 w-3 transition-transform group-hover/btn:scale-110" />
               Delete
             </Button>
           )}

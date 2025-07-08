@@ -1,5 +1,6 @@
-import type { ApiError } from '@/app/types/book'
 import axios from 'axios'
+
+import type { ApiError } from '@/app/types/book'
 
 // สร้าง axios instance
 export const api = axios.create({
@@ -12,7 +13,10 @@ export const api = axios.create({
 // Log requests
 api.interceptors.request.use(
   (config) => {
-    console.log(`🚀 [API] ${config.method?.toUpperCase()} ${config.url}`, config.params || {})
+    console.log(
+      `🚀 [API] ${config.method?.toUpperCase()} ${config.url}`,
+      config.params || {}
+    )
     return config
   },
   (error) => {

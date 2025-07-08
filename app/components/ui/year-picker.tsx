@@ -1,9 +1,10 @@
-"use client"
+'use client'
 
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import * as React from "react"
+import * as React from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+
+import { Button } from '@/components/ui/button'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 interface YearPickerProps {
   year: number | null
@@ -45,7 +46,7 @@ export function YearPicker({
         <Button
           variant="outline"
           size="icon"
-          onClick={() => setDecade(d => Math.max(fromYear, d - 10))}
+          onClick={() => setDecade((d) => Math.max(fromYear, d - 10))}
           disabled={decade <= fromYear}
         >
           <ChevronLeft className="h-4 w-4" />
@@ -56,7 +57,9 @@ export function YearPicker({
         <Button
           variant="outline"
           size="icon"
-          onClick={() => setDecade(d => Math.min(toYear - (toYear % 10), d + 10))}
+          onClick={() =>
+            setDecade((d) => Math.min(toYear - (toYear % 10), d + 10))
+          }
           disabled={decade >= toYear - (toYear % 10)}
         >
           <ChevronRight className="h-4 w-4" />
@@ -67,7 +70,7 @@ export function YearPicker({
           {years.map((y) => (
             <Button
               key={y}
-              variant={year === y ? "default" : "outline"}
+              variant={year === y ? 'default' : 'outline'}
               className="w-full"
               onClick={() => onYearChange(y)}
             >
@@ -78,11 +81,7 @@ export function YearPicker({
       </ScrollArea>
       {year && (
         <div className="flex justify-center">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => onYearChange(null)}
-          >
+          <Button variant="ghost" size="sm" onClick={() => onYearChange(null)}>
             ล้างค่า
           </Button>
         </div>
