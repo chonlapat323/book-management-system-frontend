@@ -4,7 +4,7 @@ export interface Book {
     title: string
     author: string
     published_year: number
-    genre: string
+    genre: string | null
   }
   
   // Query Parameters
@@ -40,7 +40,7 @@ export interface Book {
     title: string
     author: string
     published_year: number
-    genre: string
+    genre: string | null
   }
   
   // Update Book DTO
@@ -48,5 +48,5 @@ export interface Book {
     title?: string
     author?: string
     published_year?: number
-    genre?: string
+    genre?: string | null
   }

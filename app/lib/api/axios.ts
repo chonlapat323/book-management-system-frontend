@@ -3,15 +3,29 @@ import axios from 'axios'
 
 // สร้าง axios instance
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api',
   headers: {
     'Content-Type': 'application/json',
   },
 })
 
-// จัดการ error response
+// Log requests
+api.interceptors.request.use(
+  (config) => {
+    console.log(`🚀 [API] ${config.method?.toUpperCase()} ${config.url}`, config.params || {})
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
+
+// Log responses
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    console.log(`✅ [API] Response:`, response.config.url, response.data)
+    return response
+  },
   (error) => {
     const apiError: ApiError = error.response?.data || {
       statusCode: 500,
@@ -19,6 +33,7 @@ api.interceptors.response.use(
       message: 'เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ',
       requestId: 'unknown',
     }
+    console.error(`❌ [API] Error:`, error.config.url, apiError)
     return Promise.reject(apiError)
   }
 )

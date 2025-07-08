@@ -1,52 +1,42 @@
 "use client"
 
+import { Book } from "@/app/types/book"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Calendar, Edit, Trash2, User } from "lucide-react"
-
-interface Book {
-  id: string
-  title: string
-  author: string
-  genre: string
-  publicationYear: number
-  description?: string
-}
+import { useMemo } from "react"
 
 interface BookCardProps {
   book: Book
-  onEdit: (book: Book) => void
-  onDelete: (book: Book) => void
+  onEdit?: (book: Book) => void
+  onDelete?: (book: Book) => void
 }
 
+const gradients = [
+  //"from-blue-500/20 to-purple-500/20",
+  "from-pink-500/20 to-rose-500/20",
+  // "from-emerald-500/20 to-teal-500/20",
+  // "from-cyan-500/20 to-blue-500/20",
+  // "from-gray-500/20 to-slate-500/20",
+  // "from-indigo-500/20 to-purple-500/20",
+  // "from-amber-500/20 to-orange-500/20",
+  // "from-lime-500/20 to-green-500/20",
+  // "from-violet-500/20 to-fuchsia-500/20",
+]
+
 export function BookCard({ book, onEdit, onDelete }: BookCardProps) {
-  // Generate a gradient based on genre
-  const getRandomGradient = () => {
-    const gradients = [
-      "from-blue-500/20 to-purple-500/20",
-      "from-pink-500/20 to-rose-500/20",
-      "from-emerald-500/20 to-teal-500/20",
-      "from-cyan-500/20 to-blue-500/20",
-      "from-gray-500/20 to-slate-500/20",
-      "from-indigo-500/20 to-purple-500/20",
-      "from-amber-500/20 to-orange-500/20",
-      "from-lime-500/20 to-green-500/20",
-      "from-violet-500/20 to-fuchsia-500/20",
-    ]
-    
+  // Generate a gradient based on genre and memoize it
+  const gradient = useMemo(() => {
     const randomIndex = Math.floor(Math.random() * gradients.length)
     return gradients[randomIndex]
-  }
+  }, []) // Empty deps array means this will be calculated once per component instance
 
   return (
     <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group border-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-900 dark:to-gray-800/50 overflow-hidden">
       {/* Book Cover Placeholder with Gradient */}
-      <div className={`h-32 bg-gradient-to-br ${getRandomGradient()} relative overflow-hidden`}>
+      <div className={`h-32 bg-gradient-to-br ${gradient} relative overflow-hidden`}>
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-        {/* <div className="absolute top-3 right-3">
-          <Sparkles className="h-4 w-4 text-white/70" />หกด
-        </div> */}
         <div className="absolute bottom-3 left-3 right-3">
           <div className="text-white/90 text-xs font-medium truncate">{book.genre}</div>
         </div>
@@ -72,29 +62,33 @@ export function BookCard({ book, onEdit, onDelete }: BookCardProps) {
           </Badge>
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
             <Calendar className="h-3 w-3" />
-            <span className="font-medium">{book.publicationYear}</span>
+            <span className="font-medium">{book.published_year}</span>
           </div>
         </div>
 
         <div className="flex gap-2 pt-2">
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => onEdit(book)}
-            className="flex-1 h-9 text-xs font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-200 group/btn cursor-pointer"
-          >
-            <Edit className="h-3 w-3 mr-1.5 group-hover/btn:scale-110 transition-transform" />
-            Edit
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            onClick={() => onDelete(book)}
-            className="flex-1 h-9 text-xs font-medium hover:bg-destructive hover:text-white hover:border-destructive transition-all duration-200 group/btn cursor-pointer"
-          >
-            <Trash2 className="h-3 w-3 mr-1.5 group-hover/btn:scale-110 transition-transform " />
-            Delete
-          </Button>
+          {onEdit && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => onEdit(book)}
+              className="flex-1 h-9 text-xs font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-200 group/btn cursor-pointer"
+            >
+              <Edit className="h-3 w-3 mr-1.5 group-hover/btn:scale-110 transition-transform" />
+              Edit
+            </Button>
+          )}
+          {onDelete && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => onDelete(book)}
+              className="flex-1 h-9 text-xs font-medium hover:bg-destructive hover:text-white hover:border-destructive transition-all duration-200 group/btn cursor-pointer"
+            >
+              <Trash2 className="h-3 w-3 mr-1.5 group-hover/btn:scale-110 transition-transform " />
+              Delete
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

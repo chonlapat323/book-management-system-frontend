@@ -16,7 +16,7 @@ export function BookManagementHeader({ onAddBook }: BookManagementHeaderProps) {
             <h1 className="text-3xl font-bold tracking-tight">Book Management</h1>
             <p className="text-muted-foreground">Manage your book collection</p>
           </div>
-          <Button onClick={onAddBook} className="md:w-auto">
+          <Button onClick={onAddBook} className="md:w-auto cursor-pointer">
             <Plus className="h-4 w-4 mr-2" />
             Add New Book
           </Button>

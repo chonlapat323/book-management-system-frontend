@@ -1,24 +1,16 @@
 "use client"
 
+import { Book } from "@/app/types/book"
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-
-interface Book {
-  id: string
-  title: string
-  author: string
-  genre: string
-  publicationYear: number
-  description?: string
-}
 
 interface DeleteConfirmationDialogProps {
   open: boolean

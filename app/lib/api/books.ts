@@ -1,9 +1,9 @@
 import type {
-    ApiResponse,
-    Book,
-    BookQueryParams,
-    CreateBookDto,
-    UpdateBookDto
+  ApiResponse,
+  Book,
+  BookQueryParams,
+  CreateBookDto,
+  UpdateBookDto
 } from '@/app/types/book'
 import { api } from './axios'
 
