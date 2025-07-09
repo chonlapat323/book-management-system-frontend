@@ -9,7 +9,7 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=https://api.paodev.xyz
+      - NEXT_PUBLIC_API_URL=https://api.paodev.xyz/api
       - NEXT_PUBLIC_APP_URL=https://book.paodev.xyz
       - NEXT_TELEMETRY_DISABLED=1
     ports:
