@@ -1,25 +1,26 @@
-"use client"
+'use client'
 
-import { Button } from "@/components/ui/button"
-import { BookOpen } from "lucide-react"
+import { AlertTriangle } from 'lucide-react'
+
+import { Button } from '@/components/ui/button'
 
 interface ErrorStateProps {
-  onRetry: () => void
+  onRetry?: () => void
 }
 
 export function ErrorState({ onRetry }: ErrorStateProps) {
   return (
-    <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
-      <div className="h-16 w-16 rounded-full bg-destructive/10 flex items-center justify-center mb-4">
-        <BookOpen className="h-8 w-8 text-destructive" />
-      </div>
-      <h3 className="text-lg font-semibold text-foreground mb-2">Failed to load books</h3>
-      <p className="text-muted-foreground mb-6 max-w-sm">
-        {"There was an error loading your books. Please try again."}
+    <div className="flex flex-col items-center justify-center p-8 text-center">
+      <AlertTriangle className="text-destructive mb-4 h-12 w-12" />
+      <h3 className="mb-2 text-lg font-semibold">Something went wrong</h3>
+      <p className="text-muted-foreground mb-4">
+        An error occurred while loading the books.
       </p>
-      <Button onClick={onRetry} variant="outline">
-        Try Again
-      </Button>
+      {onRetry && (
+        <Button onClick={onRetry} variant="outline">
+          Try again
+        </Button>
+      )}
     </div>
   )
 }
