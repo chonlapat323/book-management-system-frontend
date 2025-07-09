@@ -14,7 +14,7 @@ services:
       - '3000:3000'
     labels:
       - traefik.enable=true
-      - traefik.http.routers.frontend.rule=Host(`paodev.xyz`)
+      - traefik.http.routers.frontend.rule=Host(`book.paodev.xyz`)
       - traefik.http.routers.frontend.entrypoints=http,https
       - traefik.http.services.frontend.loadbalancer.server.port=3000
       - traefik.http.routers.frontend.tls.certresolver=letsencrypt
