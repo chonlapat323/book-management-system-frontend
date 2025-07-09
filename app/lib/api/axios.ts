@@ -4,7 +4,7 @@ import type { ApiError } from '@/app/types/book'
 
 // สร้าง axios instance
 export const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://api.paodev.xyz',
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://api.paodev.xyz/api',
   headers: {
     'Content-Type': 'application/json',
   },
